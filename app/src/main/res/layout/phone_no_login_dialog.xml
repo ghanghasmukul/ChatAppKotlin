@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_16sdp"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:id="@+id/etMobileNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:hint="Enter Mobile Number"
+        android:textSize="@dimen/_16sdp"
+        android:inputType="number"
+        android:autofillHints="Mobile Number" />
+
+    <Button
+        android:id="@+id/btnRequestOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="Send Otp" />
+    <EditText
+        android:id="@+id/etEnterOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:inputType="number"
+        android:hint="Enter OTP to login"
+        android:textSize="@dimen/_16sdp" />
+    <Button
+        android:id="@+id/btnLoginUsingPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="Login" />
+</LinearLayout>
