@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.chatapp.databinding.ActivityLoginBinding
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
@@ -23,36 +20,38 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var phoneET: EditText
     private lateinit var otpET: EditText
-    private lateinit var signIn : Button
-    private lateinit var textBody :TextInputLayout
-private lateinit var sendOtp : Button
+    private lateinit var signIn: Button
+    private lateinit var textBody: TextInputLayout
+    private lateinit var sendOtp: Button
     private var verificationId: String? = null
+    private lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val binding = ActivityLoginBinding.inflate(layoutInflater)
-//        val root = setContentView(binding.root)
-        setContentView(R.layout.activity_login)
-textBody = findViewById(R.id.enterOtpBody)
+        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        val root = setContentView(binding.root)
+        textBody = binding.enterOtpBody
         mAuth = FirebaseAuth.getInstance()
-        phoneET = findViewById(R.id.etMobileNo)
-        otpET = findViewById(R.id.etEnterOtp1)
-        signIn = findViewById(R.id.buttonLogin)
-        sendOtp = findViewById(R.id.buttonOTP)
+        phoneET = binding.etMobileNo
+        otpET = binding.etEnterOtp1
+        signIn = binding.buttonLogin
+        sendOtp = binding.buttonOTP
+        progressBar = binding.progressBar1
 
         try {
             this.supportActionBar!!.hide()
-        } catch (e: NullPointerException) { }
+        } catch (e: NullPointerException) {
+        }
 
 
         sendOtp.setOnClickListener { sendOtpClicked() }
-        signIn.setOnClickListener {singInClicked()}
+        signIn.setOnClickListener { signInClicked() }
 
-
+        return root
 
     }
 
-    private fun singInClicked() {
+    private fun signInClicked() {
         if (TextUtils.isEmpty(otpET.text.toString())) {
             Toast.makeText(this@LoginActivity, "Please enter OTP", Toast.LENGTH_SHORT).show()
         } else {
@@ -66,9 +65,8 @@ textBody = findViewById(R.id.enterOtpBody)
         if (phoneET.text?.isEmpty() == true || phoneET.text?.length!! < 10) {
             Toast.makeText(this, "Enter correct phone number", Toast.LENGTH_SHORT).show()
         } else {
-            signIn.visibility = View.VISIBLE
-            textBody.visibility = View.VISIBLE
-            otpET.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
+
             val options = PhoneAuthOptions.newBuilder(mAuth)
                 .setPhoneNumber("+91${phoneET.text}")
                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -89,7 +87,7 @@ textBody = findViewById(R.id.enterOtpBody)
                         val code: String? = p0.smsCode
                         if (code != null) {
                             otpET.setText(code)
-                            verifyCode(code);
+                            verifyCode(code)
                         }
                     }
 
@@ -99,10 +97,12 @@ textBody = findViewById(R.id.enterOtpBody)
                 })
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
+            progressBar.visibility = View.INVISIBLE
+            signIn.visibility = View.VISIBLE
+            textBody.visibility = View.VISIBLE
+            otpET.visibility = View.VISIBLE
         }
     }
-
-
 
 
     private fun verifyCode(code: String) {
@@ -115,6 +115,7 @@ textBody = findViewById(R.id.enterOtpBody)
         }
 
     }
+
     private fun signInWithCredential(credential: PhoneAuthCredential) {
 
         mAuth.signInWithCredential(credential)

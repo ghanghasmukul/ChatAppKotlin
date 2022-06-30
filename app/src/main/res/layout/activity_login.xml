@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,26 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:id="@+id/progress_bar1"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/textColor"
+        style="@style/Theme.App"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,6 +72,8 @@
                     android:layout_height="match_parent"
                     android:inputType="phone"
                     android:textColor="#6E0B0B" />
+
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -67,14 +86,13 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:backgroundTint="@color/textColor"
                 android:text="Get Otp"
-                android:textColor="@color/white"
-               />
+                android:textColor="@color/white" />
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/enterOtpBody"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:id="@+id/enterOtpBody"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_16sdp"
                 android:hint="Enter OTP"
@@ -105,4 +123,4 @@
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
