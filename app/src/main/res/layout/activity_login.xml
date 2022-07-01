@@ -7,18 +7,6 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:layout_width="wrap_content"
-        android:id="@+id/progress_bar1"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:indicatorColor="@color/textColor"
-        style="@style/Theme.App"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -26,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+       >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +29,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/password" />
+                app:lottie_rawRes="@raw/login1" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -55,11 +44,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                android:id="@+id/phoneETLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginRight="@dimen/_16sdp"
                 android:hint="Mobile No."
                 android:textColorHint="@color/textColor"
@@ -71,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="phone"
-                    android:textColor="#6E0B0B" />
+                    android:textColor="@color/textColor" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -88,7 +78,17 @@
                 android:text="Get Otp"
                 android:textColor="@color/white" />
 
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                app:layout_constraintVertical_bias="0.96"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_colorFilter="@color/textColor"
+                app:lottie_rawRes="@raw/paperplane" />
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/enterOtpBody"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"

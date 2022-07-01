@@ -7,7 +7,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.airbnb.lottie.LottieAnimationView
 import com.example.chatapp.databinding.ActivityLoginBinding
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -24,11 +26,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var textBody: TextInputLayout
     private lateinit var sendOtp: Button
     private var verificationId: String? = null
-    private lateinit var progressBar : ProgressBar
+    private lateinit var binding: ActivityLoginBinding
+    lateinit var progressBar : CircularProgressIndicator
+    lateinit var lottie : LottieAnimationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         val root = setContentView(binding.root)
         textBody = binding.enterOtpBody
         mAuth = FirebaseAuth.getInstance()
@@ -36,7 +41,9 @@ class LoginActivity : AppCompatActivity() {
         otpET = binding.etEnterOtp1
         signIn = binding.buttonLogin
         sendOtp = binding.buttonOTP
-        progressBar = binding.progressBar1
+        lottie = binding.lottie
+
+
 
         try {
             this.supportActionBar!!.hide()
@@ -62,11 +69,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendOtpClicked() {
-        if (phoneET.text?.isEmpty() == true || phoneET.text?.length!! < 10) {
-            Toast.makeText(this, "Enter correct phone number", Toast.LENGTH_SHORT).show()
-        } else {
-            progressBar.visibility = View.VISIBLE
 
+        if (phoneET.text?.isEmpty() == true || phoneET.text?.length!! != 10) {
+            Toast.makeText(this, "Enter correct phone number", Toast.LENGTH_SHORT).show()
+            binding.phoneETLayout.error = "Enter correct mobile number"
+            binding.phoneETLayout.isErrorEnabled = true
+        } else {
+            lottie.visibility = View.VISIBLE
+            binding.phoneETLayout.isErrorEnabled = false
             val options = PhoneAuthOptions.newBuilder(mAuth)
                 .setPhoneNumber("+91${phoneET.text}")
                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -80,6 +90,11 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                         super.onCodeSent(p0, p1)
                         verificationId = p0
+                        progressBar.visibility = View.INVISIBLE
+                        lottie.visibility = View.GONE
+                        signIn.visibility = View.VISIBLE
+                        textBody.visibility = View.VISIBLE
+                        otpET.visibility = View.VISIBLE
 
                     }
 
@@ -88,26 +103,37 @@ class LoginActivity : AppCompatActivity() {
                         if (code != null) {
                             otpET.setText(code)
                             verifyCode(code)
+                            lottie.visibility = View.GONE
+
                         }
                     }
 
                     override fun onVerificationFailed(p0: FirebaseException) {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Verification Failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.e("onFailure", "on phone number verification failure - $p0")
+//                        dialog!!.hide()
+                        lottie.visibility = View.GONE
+                        signIn.visibility = View.INVISIBLE
+                        textBody.visibility = View.INVISIBLE
+                        otpET.visibility = View.INVISIBLE
+
                     }
                 })
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
-            progressBar.visibility = View.INVISIBLE
-            signIn.visibility = View.VISIBLE
-            textBody.visibility = View.VISIBLE
-            otpET.visibility = View.VISIBLE
+
+
         }
     }
 
 
     private fun verifyCode(code: String) {
         val credential: PhoneAuthCredential? =
-            verificationId?.let { PhoneAuthProvider.getCredential(it, code) };
+            verificationId?.let { PhoneAuthProvider.getCredential(it, code) }
 
         if (credential != null) {
             signInWithCredential(credential)
