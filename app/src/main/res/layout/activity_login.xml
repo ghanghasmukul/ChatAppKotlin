@@ -61,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="phone"
+                    android:maxLength="10"
                     android:textColor="@color/textColor" />
 
 
@@ -103,9 +104,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEnterOtp1"
+                    android:maxLength="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPersonName" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
