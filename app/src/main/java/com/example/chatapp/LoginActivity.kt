@@ -74,8 +74,15 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Enter correct phone number", Toast.LENGTH_SHORT).show()
             binding.phoneETLayout.error = "Enter correct mobile number"
             binding.phoneETLayout.isErrorEnabled = true
+            lottie.visibility = View.GONE
+            signIn.visibility = View.INVISIBLE
+            textBody.visibility = View.INVISIBLE
+            otpET.visibility = View.INVISIBLE
         } else {
             lottie.visibility = View.VISIBLE
+            signIn.visibility = View.INVISIBLE
+            textBody.visibility = View.INVISIBLE
+            otpET.visibility = View.INVISIBLE
             binding.phoneETLayout.isErrorEnabled = false
             val options = PhoneAuthOptions.newBuilder(mAuth)
                 .setPhoneNumber("+91${phoneET.text}")
