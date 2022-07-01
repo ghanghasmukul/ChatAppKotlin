@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var sendOtp: Button
     private var verificationId: String? = null
     private lateinit var binding: ActivityLoginBinding
-    lateinit var progressBar : CircularProgressIndicator
     lateinit var lottie : LottieAnimationView
 
 
@@ -76,8 +75,9 @@ class LoginActivity : AppCompatActivity() {
             binding.phoneETLayout.isErrorEnabled = true
             lottie.visibility = View.GONE
             signIn.visibility = View.INVISIBLE
+            otpET.visibility = View.VISIBLE
             textBody.visibility = View.INVISIBLE
-            otpET.visibility = View.INVISIBLE
+            //otpET.visibility = View.INVISIBLE
         } else {
             lottie.visibility = View.VISIBLE
             signIn.visibility = View.INVISIBLE
@@ -97,7 +97,6 @@ class LoginActivity : AppCompatActivity() {
                         ).show()
                         super.onCodeSent(p0, p1)
                         verificationId = p0
-                        progressBar.visibility = View.INVISIBLE
                         lottie.visibility = View.GONE
                         signIn.visibility = View.VISIBLE
                         textBody.visibility = View.VISIBLE
@@ -122,7 +121,6 @@ class LoginActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.e("onFailure", "on phone number verification failure - $p0")
-//                        dialog!!.hide()
                         lottie.visibility = View.GONE
                         signIn.visibility = View.INVISIBLE
                         textBody.visibility = View.INVISIBLE
