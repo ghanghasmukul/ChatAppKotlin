@@ -1,4 +1,4 @@
-package com.example.chatapp
+package com.example.chatapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.*
 import com.airbnb.lottie.LottieAnimationView
 import com.example.chatapp.databinding.ActivityLoginBinding
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -77,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
             signIn.visibility = View.INVISIBLE
             otpET.visibility = View.VISIBLE
             textBody.visibility = View.INVISIBLE
-            //otpET.visibility = View.INVISIBLE
         } else {
             lottie.visibility = View.VISIBLE
             signIn.visibility = View.INVISIBLE
@@ -152,7 +150,7 @@ class LoginActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val i = Intent(this@LoginActivity, MainActivity::class.java)
+                    val i = Intent(this@LoginActivity, UserDetailsActivity::class.java)
                     startActivity(i)
                     finish()
                 } else {
@@ -168,7 +166,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = mAuth.currentUser
         if (user != null) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
             finish()
         }
