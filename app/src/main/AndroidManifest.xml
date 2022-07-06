@@ -17,10 +17,13 @@
         android:theme="@style/Theme.ChatApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.UserDetailsActivity"
+            android:name=".activities.AllUsersActivity"
             android:exported="true" >
 
         </activity>
+        <activity
+            android:name=".activities.UserDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.AllChatActivity"
             android:exported="false" />
@@ -28,10 +31,10 @@
             android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ChatActivity"

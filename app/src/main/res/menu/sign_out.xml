@@ -7,4 +7,10 @@
         android:title="Sign Out"
         app:showAsAction="collapseActionView"
         android:iconTint="@color/white"/>
+    <item
+        android:id="@+id/allUsers"
+        android:icon="@drawable/outline_send_gray"
+        android:title="Sign Out"
+        app:showAsAction="always"
+        android:iconTint="@color/white"/>
 </menu>
